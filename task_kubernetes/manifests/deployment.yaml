@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slotegrator-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slotegrator-test
+  template:
+    metadata:
+      labels:
+        app: slotegrator-test
+    spec:
+      volumes:
+        - name: slotegrator-test-volume
+          persistentVolumeClaim:
+            claimName: slotegrator-test-pvc
+      containers:
+      - name: slotegrator-test
+        image: sigoden/dufs:v0.36.0
+        args: ["/data", "-A"]
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        livenessProbe: 
+          tcpSocket:
+            port: 5000
+        readinessProbe:
+          tcpSocket:
+            port: 5000
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
+          requests:
+            memory: "128Mi"
+            cpu: "50m"
+        volumeMounts:
+          - mountPath: /data
+            name: slotegrator-test-volume
