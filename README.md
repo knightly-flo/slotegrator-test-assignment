@@ -47,7 +47,7 @@ res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
 kind create cluster --config ./task_kubernetes/kind/kind-cluster-config.yaml
 ```
 
-kind при создании включает в себя `StorageClass` для динамического обеспечения `PersistentVolume`, используя provisioner [rancher.io/local-path](https://https://github.com/rancher/local-path-provisioner):
+kind при создании включает в себя `StorageClass` для динамического обеспечения `PersistentVolume`, используя provisioner [rancher.io/local-path](https://github.com/rancher/local-path-provisioner):
 
 ```shell
 flo@knightly-flo:~/slotegrator_test$ kubectl get storageclasses.storage.k8s.io 
